@@ -1,0 +1,1038 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ZEKRA — Our Memories</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+    --bg:#10070c;
+    --bg2:#1d0d15;
+    --card:#25121b;
+    --card2:#301722;
+    --pink:#e19ab2;
+    --pink2:#f2c5d3;
+    --gold:#d9b477;
+    --white:#fff8fb;
+    --muted:#bca7af;
+    --line:rgba(255,255,255,.09);
+}
+* {
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+html {
+    scroll-behavior:smooth;
+}
+body {
+    background:
+        radial-gradient(circle at 10% 10%,rgba(225,154,178,.12),transparent 28%),
+        radial-gradient(circle at 90% 50%,rgba(217,180,119,.08),transparent 25%),
+        var(--bg);
+    color:var(--white);
+    font-family:"DM Sans",sans-serif;
+    overflow-x:hidden;
+}
+/* ---------------- PASSWORD ---------------- */
+#passwordScreen {
+    position:fixed;
+    inset:0;
+    z-index:99999;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:22px;
+    background:
+        radial-gradient(circle at 50% 40%,rgba(225,154,178,.14),transparent 38%),
+        #0c0509;
+}
+.password-box {
+    width:100%;
+    max-width:410px;
+    padding:48px 28px;
+    text-align:center;
+    border:1px solid rgba(217,180,119,.22);
+    border-radius:30px;
+    background:rgba(35,16,25,.72);
+    backdrop-filter:blur(25px);
+    box-shadow:0 30px 100px rgba(0,0,0,.55);
+    animation:boxIn 1s ease;
+}
+@keyframes boxIn {
+    from {
+        opacity:0;
+        transform:scale(.92) translateY(20px);
+    }
+    to {
+        opacity:1;
+        transform:scale(1) translateY(0);
+    }
+}
+.logo {
+    font-family:"Cormorant Garamond",serif;
+    font-size:48px;
+    letter-spacing:7px;
+    color:var(--pink2);
+}
+.password-small {
+    color:var(--gold);
+    letter-spacing:4px;
+    font-size:10px;
+    text-transform:uppercase;
+    margin:8px 0 35px;
+}
+.password-box h2 {
+    font-family:"Cormorant Garamond",serif;
+    font-size:32px;
+    font-weight:500;
+    margin-bottom:10px;
+}
+.password-box p {
+    color:var(--muted);
+    font-size:13px;
+    line-height:1.7;
+    margin-bottom:25px;
+}
+.password-box input {
+    width:100%;
+    padding:16px;
+    border-radius:16px;
+    border:1px solid var(--line);
+    background:rgba(255,255,255,.05);
+    color:white;
+    text-align:center;
+    outline:none;
+    font-size:15px;
+    margin-bottom:12px;
+}
+.password-box button {
+    width:100%;
+    padding:16px;
+    border:0;
+    border-radius:16px;
+    cursor:pointer;
+    color:white;
+    font-weight:600;
+    background:linear-gradient(135deg,#df91aa,#b96685);
+    box-shadow:0 12px 35px rgba(190,95,130,.22);
+    transition:.3s;
+}
+.password-box button:hover {
+    transform:translateY(-2px);
+}
+#error {
+    display:none;
+    color:#ed9daf;
+    font-size:12px;
+    margin-top:13px;
+}
+/* ---------------- WEBSITE ---------------- */
+#website {
+    display:none;
+}
+section {
+    width:min(1050px,92%);
+    margin:auto;
+}
+/* ---------------- MUSIC BUTTON ---------------- */
+.music-btn {
+    position:fixed;
+    right:20px;
+    bottom:20px;
+    z-index:9000;
+    width:58px;
+    height:58px;
+    border-radius:50%;
+    border:1px solid rgba(255,255,255,.18);
+    background:rgba(38,17,27,.78);
+    backdrop-filter:blur(15px);
+    color:white;
+    cursor:pointer;
+    box-shadow:0 15px 40px rgba(0,0,0,.35);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:21px;
+    transition:.35s;
+}
+.music-btn:hover {
+    transform:scale(1.08);
+}
+.music-btn.playing {
+    animation:pulseMusic 1.6s infinite;
+}
+@keyframes pulseMusic {
+    0%,100% {
+        box-shadow:0 0 0 0 rgba(225,154,178,.25);
+    }
+    50% {
+        box-shadow:0 0 0 13px rgba(225,154,178,0);
+    }
+}
+/* ---------------- HERO ---------------- */
+.hero {
+    min-height:92vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    position:relative;
+}
+.hero-content {
+    max-width:720px;
+}
+.eyebrow {
+    color:var(--gold);
+    font-size:10px;
+    letter-spacing:5px;
+    text-transform:uppercase;
+    margin-bottom:20px;
+}
+.hero h1 {
+    font-family:"Cormorant Garamond",serif;
+    font-size:clamp(65px,12vw,125px);
+    font-weight:500;
+    line-height:.82;
+    margin-bottom:30px;
+}
+.hero h1 span {
+    color:var(--pink);
+    font-style:italic;
+}
+.hero p {
+    max-width:520px;
+    margin:auto;
+    color:var(--muted);
+    line-height:1.9;
+    font-size:14px;
+}
+.scroll {
+    position:absolute;
+    bottom:30px;
+    left:50%;
+    transform:translateX(-50%);
+    color:#8e737d;
+    font-size:10px;
+    letter-spacing:3px;
+    text-transform:uppercase;
+    animation:float 2s infinite;
+}
+@keyframes float {
+    0%,100% {transform:translate(-50%,0);}
+    50% {transform:translate(-50%,7px);}
+}
+/* ---------------- COUNTER ---------------- */
+.counter-section {
+    text-align:center;
+    padding:80px 0 130px;
+}
+.counter-label {
+    color:var(--muted);
+    font-size:12px;
+    letter-spacing:2px;
+}
+.counter {
+    font-family:"Cormorant Garamond",serif;
+    font-size:clamp(70px,15vw,140px);
+    line-height:1;
+    color:var(--pink2);
+    margin:10px 0;
+}
+.counter-sub {
+    color:var(--gold);
+    letter-spacing:4px;
+    font-size:10px;
+    text-transform:uppercase;
+}
+/* ---------------- HEADINGS ---------------- */
+.section-heading {
+    text-align:center;
+    margin-bottom:45px;
+}
+.section-heading small {
+    color:var(--gold);
+    font-size:10px;
+    letter-spacing:4px;
+    text-transform:uppercase;
+}
+.section-heading h2 {
+    font-family:"Cormorant Garamond",serif;
+    font-size:50px;
+    font-weight:500;
+    margin-top:10px;
+}
+/* ---------------- MEMORY GRID ---------------- */
+.memories {
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:20px;
+}
+.memory {
+    position:relative;
+    height:470px;
+    overflow:hidden;
+    border-radius:26px;
+    background:var(--card);
+    border:1px solid var(--line);
+    cursor:pointer;
+    box-shadow:0 20px 50px rgba(0,0,0,.18);
+    transition:.5s;
+}
+.memory:hover {
+    transform:translateY(-7px);
+    border-color:rgba(225,154,178,.25);
+}
+.memory img {
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    transition:transform .8s ease;
+}
+.memory:hover img {
+    transform:scale(1.07);
+}
+.memory::after {
+    content:"";
+    position:absolute;
+    inset:0;
+    background:linear-gradient(
+        to top,
+        rgba(10,4,7,.88),
+        rgba(10,4,7,.05) 65%
+    );
+}
+.memory-info {
+    position:absolute;
+    z-index:2;
+    bottom:25px;
+    left:25px;
+    right:25px;
+}
+.memory-number {
+    color:var(--gold);
+    font-size:10px;
+    letter-spacing:3px;
+    margin-bottom:7px;
+}
+.memory-info h3 {
+    font-family:"Cormorant Garamond",serif;
+    font-size:34px;
+    font-weight:500;
+}
+.memory-info p {
+    color:#d1bec5;
+    font-size:12px;
+    margin-top:5px;
+}
+@media(max-width:650px) {
+    .memories {
+        grid-template-columns:1fr;
+    }
+    .memory {
+        height:440px;
+    }
+}
+/* ---------------- VIDEO ---------------- */
+.video-section {
+    padding:140px 0;
+}
+.video-box {
+    overflow:hidden;
+    border-radius:28px;
+    border:1px solid rgba(217,180,119,.2);
+    background:#080406;
+    box-shadow:0 30px 80px rgba(0,0,0,.4);
+}
+.video-box video {
+    display:block;
+    width:100%;
+    max-height:650px;
+    object-fit:cover;
+}
+/* ---------------- NOTE ---------------- */
+.note-section {
+    padding:80px 0 150px;
+}
+.note-card {
+    max-width:700px;
+    margin:auto;
+    text-align:center;
+    padding:65px 30px;
+    border-radius:30px;
+    background:
+        linear-gradient(
+            145deg,
+            rgba(225,154,178,.10),
+            rgba(217,180,119,.04)
+        );
+    border:1px solid rgba(217,180,119,.2);
+    box-shadow:0 25px 70px rgba(0,0,0,.2);
+}
+.note-icon {
+    font-size:27px;
+    margin-bottom:18px;
+}
+.note-card h2 {
+    font-family:"Cormorant Garamond",serif;
+    font-size:45px;
+    font-weight:500;
+}
+.note-card p {
+    color:var(--muted);
+    line-height:2;
+    margin-top:20px;
+}
+/* ---------------- MODAL ---------------- */
+.modal {
+    position:fixed;
+    inset:0;
+    z-index:10000;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+    background:rgba(5,2,4,.86);
+    backdrop-filter:blur(15px);
+}
+.modal.active {
+    display:flex;
+    animation:modalFade .35s ease;
+}
+@keyframes modalFade {
+    from {opacity:0;}
+    to {opacity:1;}
+}
+.modal-content {
+    width:min(900px,100%);
+    max-height:92vh;
+    overflow:auto;
+    border-radius:30px;
+    background:linear-gradient(145deg,#2b141f,#170b11);
+    border:1px solid rgba(255,255,255,.1);
+    box-shadow:0 40px 120px rgba(0,0,0,.65);
+    animation:modalIn .45s ease;
+    position:relative;
+}
+@keyframes modalIn {
+    from {
+        opacity:0;
+        transform:translateY(30px) scale(.97);
+    }
+    to {
+        opacity:1;
+        transform:translateY(0) scale(1);
+    }
+}
+.close {
+    position:absolute;
+    top:15px;
+    right:15px;
+    z-index:5;
+    width:40px;
+    height:40px;
+    border-radius:50%;
+    border:1px solid rgba(255,255,255,.15);
+    background:rgba(0,0,0,.35);
+    color:white;
+    cursor:pointer;
+    font-size:18px;
+}
+.main-memory-image {
+    width:100%;
+    max-height:520px;
+    object-fit:cover;
+    display:block;
+}
+.memory-story {
+    padding:35px 30px 45px;
+}
+.memory-date {
+    color:var(--gold);
+    font-size:10px;
+    letter-spacing:3px;
+    text-transform:uppercase;
+}
+.memory-story h2 {
+    font-family:"Cormorant Garamond",serif;
+    font-size:46px;
+    font-weight:500;
+    margin:8px 0 15px;
+}
+.memory-story p {
+    color:var(--muted);
+    line-height:2;
+    font-size:14px;
+}
+.extra-title {
+    font-family:"Cormorant Garamond",serif;
+    font-size:29px;
+    margin:35px 0 15px;
+}
+.extra-images {
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:10px;
+}
+.extra-images img {
+    width:100%;
+    aspect-ratio:1;
+    object-fit:cover;
+    border-radius:14px;
+    cursor:pointer;
+    transition:.3s;
+}
+.extra-images img:hover {
+    transform:scale(1.03);
+}
+@media(max-width:600px) {
+    .extra-images {
+        grid-template-columns:repeat(2,1fr);
+    }
+    .memory-story h2 {
+        font-size:38px;
+    }
+}
+/* ---------------- FOOTER ---------------- */
+footer {
+    text-align:center;
+    padding:35px 20px 50px;
+    color:#715b64;
+    font-size:10px;
+    letter-spacing:2px;
+}
+footer span {
+    color:var(--pink);
+}
+</style>
+</head>
+<body>
+<!-- ================= PASSWORD ================= -->
+<div id="passwordScreen">
+    <div class="password-box">
+        <div class="logo">ZEKRA</div>
+        <div class="password-small">
+            Our memories
+        </div>
+        <h2>Welcome to our little world</h2>
+        <p>
+            A place made only for the moments<br>
+            we never want to forget.
+        </p>
+        <input
+            type="password"
+            id="password"
+            placeholder="Enter password"
+            onkeydown="if(event.key==='Enter') checkPassword()"
+        >
+        <button onclick="checkPassword()">
+            Open our memories
+        </button>
+        <div id="error">
+            Wrong password. Try again.
+        </div>
+    </div>
+</div>
+<!-- ================= WEBSITE ================= -->
+<div id="website">
+    <!-- MUSIC -->
+    <audio id="music" loop>
+        <source src="song.mp3" type="audio/mpeg">
+    </audio>
+    <button class="music-btn" id="musicBtn" onclick="toggleMusic()">
+        ♫
+    </button>
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="eyebrow">
+                Two hearts · One story
+            </div>
+            <h1>
+                Our <span>little</span><br>
+                forever.
+            </h1>
+            <p>
+                Every picture holds a moment.
+                Every moment holds a feeling.
+                And somehow, all of them became our story.
+            </p>
+        </div>
+        <div class="scroll">
+            Scroll to remember ↓
+        </div>
+    </section>
+    <!-- COUNTER -->
+    <section class="counter-section">
+        <div class="counter-label">
+            We've been writing our story for
+        </div>
+        <div class="counter" id="counter">
+            0000
+        </div>
+        <div class="counter-sub">
+            Beautiful days together
+        </div>
+    </section>
+    <!-- MEMORIES -->
+    <section>
+        <div class="section-heading">
+            <small>
+                Our memories
+            </small>
+            <h2>
+                Little moments.
+            </h2>
+        </div>
+        <div class="memories">
+            <!-- MEMORY 1 -->
+            <div class="memory" onclick="openMemory(0)">
+                <img src="memory1.jpg">
+                <div class="memory-info">
+                    <div class="memory-number">
+                        MEMORY 01
+                    </div>
+                    <h3>
+                        The beginning
+                    </h3>
+                    <p>
+                        The moment everything started.
+                    </p>
+                </div>
+            </div>
+            <!-- MEMORY 2 -->
+            <div class="memory" onclick="openMemory(1)">
+                <img src="memory2.jpg">
+                <div class="memory-info">
+                    <div class="memory-number">
+                        MEMORY 02
+                    </div>
+                    <h3>
+                        That day
+                    </h3>
+                    <p>
+                        A day worth remembering.
+                    </p>
+                </div>
+            </div>
+            <!-- MEMORY 3 -->
+            <div class="memory" onclick="openMemory(2)">
+                <img src="memory3.jpg">
+                <div class="memory-info">
+                    <div class="memory-number">
+                        MEMORY 03
+                    </div>
+                    <h3>
+                        Just us
+                    </h3>
+                    <p>
+                        Nothing else mattered.
+                    </p>
+                </div>
+            </div>
+            <!-- MEMORY 4 -->
+            <div class="memory" onclick="openMemory(3)">
+                <img src="memory4.jpg">
+                <div class="memory-info">
+                    <div class="memory-number">
+                        MEMORY 04
+                    </div>
+                    <h3>
+                        A beautiful day
+                    </h3>
+                    <p>
+                        One of those days we keep talking about.
+                    </p>
+                </div>
+            </div>
+            <!-- MEMORY 5 -->
+            <div class="memory" onclick="openMemory(4)">
+                <img src="memory5.jpg">
+                <div class="memory-info">
+                    <div class="memory-number">
+                        MEMORY 05
+                    </div>
+                    <h3>
+                        With you
+                    </h3>
+                    <p>
+                        Ordinary moments became special.
+                    </p>
+                </div>
+            </div>
+            <!-- MEMORY 6 -->
+            <div class="memory" onclick="openMemory(5)">
+                <img src="memory6.jpg">
+                <div class="memory-info">
+                    <div class="memory-number">
+                        MEMORY 06
+                    </div>
+                    <h3>
+                        One more memory
+                    </h3>
+                    <p>
+                        Another page in our story.
+                    </p>
+                </div>
+            </div>
+            <!-- MEMORY 7 -->
+            <div class="memory" onclick="openMemory(6)">
+                <img src="memory7.jpg">
+                <div class="memory-info">
+                    <div class="memory-number">
+                        MEMORY 07
+                    </div>
+                    <h3>
+                        Our favorite
+                    </h3>
+                    <p>
+                        A moment we wish could last forever.
+                    </p>
+                </div>
+            </div>
+            <!-- MEMORY 8 -->
+            <div class="memory" onclick="openMemory(7)">
+                <img src="memory8.jpg">
+                <div class="memory-info">
+                    <div class="memory-number">
+                        MEMORY 08
+                    </div>
+                    <h3>
+                        Together
+                    </h3>
+                    <p>
+                        Just another reason to smile.
+                    </p>
+                </div>
+            </div>
+            <!-- MEMORY 9 -->
+            <div class="memory" onclick="openMemory(8)">
+                <img src="memory9.jpg">
+                <div class="memory-info">
+                    <div class="memory-number">
+                        MEMORY 09
+                    </div>
+                    <h3>
+                        This feeling
+                    </h3>
+                    <p>
+                        Some things don't need an explanation.
+                    </p>
+                </div>
+            </div>
+            <!-- MEMORY 10 -->
+            <div class="memory" onclick="openMemory(9)">
+                <img src="memory10.jpg">
+                <div class="memory-info">
+                    <div class="memory-number">
+                        MEMORY 10
+                    </div>
+                    <h3>
+                        To be continued...
+                    </h3>
+                    <p>
+                        Because our story isn't over.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- VIDEO -->
+    <section class="video-section">
+        <div class="section-heading">
+            <small>
+                One moment in motion
+            </small>
+            <h2>
+                Our little movie.
+            </h2>
+        </div>
+        <div class="video-box">
+            <video controls playsinline poster="video-cover.jpg">
+                <source src="video.mp4" type="video/mp4">
+                Your browser does not support video.
+            </video>
+        </div>
+    </section>
+    <!-- HIDDEN NOTE -->
+    <section class="note-section">
+        <div class="note-card">
+            <div class="note-icon">
+                ♡
+            </div>
+            <h2>
+                A little note for you
+            </h2>
+            <p>
+                If I could keep only one thing from all these memories,
+                I wouldn't choose a picture, a place, or a day.
+                I would choose the feeling of being with you.
+                <br><br>
+                And if this is only the beginning,
+                I can't wait to see everything we'll remember next.
+            </p>
+        </div>
+    </section>
+    <footer>
+        Made with love by <span>ZEKRA</span>
+    </footer>
+</div>
+<!-- ================= MEMORY MODAL ================= -->
+<div class="modal" id="memoryModal">
+    <div class="modal-content">
+        <button class="close" onclick="closeMemory()">
+            ×
+        </button>
+        <img
+            id="modalMainImage"
+            class="main-memory-image"
+            src=""
+        >
+        <div class="memory-story">
+            <div class="memory-date" id="modalDate">
+                OUR MEMORY
+            </div>
+            <h2 id="modalTitle">
+                The beginning
+            </h2>
+            <p id="modalText">
+                This was one of those moments we wish we could live again.
+            </p>
+            <div class="extra-title">
+                More from this day
+            </div>
+            <div class="extra-images" id="extraImages"></div>
+        </div>
+    </div>
+</div>
+<script>
+/* ================= PASSWORD ================= */
+const PASSWORD = "1234";
+function checkPassword() {
+    const input = document.getElementById("password").value;
+    const error = document.getElementById("error");
+    if(input === PASSWORD) {
+        document.getElementById("passwordScreen").style.display = "none";
+        document.getElementById("website").style.display = "block";
+        document.body.style.overflow = "auto";
+        startCounter();
+        /*
+        محاولة تشغيل الأغنية تلقائياً.
+        بعض المتصفحات تمنع التشغيل التلقائي،
+        لذلك يوجد زر الموسيقى أيضاً.
+        */
+        const music = document.getElementById("music");
+        music.play()
+        .then(() => {
+            document.getElementById("musicBtn").classList.add("playing");
+        })
+        .catch(() => {});
+    } else {
+        error.style.display = "block";
+    }
+}
+/* ================= MUSIC ================= */
+const music = document.getElementById("music");
+const musicBtn = document.getElementById("musicBtn");
+function toggleMusic() {
+    if(music.paused) {
+        music.play();
+        musicBtn.classList.add("playing");
+    } else {
+        music.pause();
+        musicBtn.classList.remove("playing");
+    }
+}
+/* ================= COUNTER ================= */
+/*
+غير التاريخ هنا
+مثال:
+2025-09-30
+*/
+const startDate = new Date("2025-09-30T00:00:00");
+function startCounter() {
+    function updateCounter() {
+        const now = new Date();
+        const difference = now - startDate;
+        const days = Math.floor(
+            difference / (1000 * 60 * 60 * 24)
+        );
+        document.getElementById("counter").textContent =
+            String(days).padStart(4,"0");
+    }
+    updateCounter();
+    setInterval(updateCounter,60000);
+}
+/* ================= MEMORIES DATA ================= */
+/*
+كل Memory لها:
+main = الصورة الأساسية
+title = اسم الذكرى
+date = التاريخ
+text = الكلام
+extra = صور إضافية من نفس اليوم
+*/
+const memories = [
+    {
+        main:"memory1.jpg",
+        title:"The beginning",
+        date:"The day it all started",
+        text:"Some beginnings are quiet. But somehow, they become the most important chapters of our lives.",
+        extra:[
+            "memory1-1.jpg",
+            "memory1-2.jpg",
+            "memory1-3.jpg"
+        ]
+    },
+    {
+        main:"memory2.jpg",
+        title:"That day",
+        date:"A day worth remembering",
+        text:"We probably didn't know it at the time, but this would become one of the moments we'd always remember.",
+        extra:[
+            "memory2-1.jpg",
+            "memory2-2.jpg",
+            "memory2-3.jpg"
+        ]
+    },
+    {
+        main:"memory3.jpg",
+        title:"Just us",
+        date:"Nothing else mattered",
+        text:"No perfect place. No perfect plan. Just us, and somehow that was enough.",
+        extra:[
+            "memory3-1.jpg",
+            "memory3-2.jpg",
+            "memory3-3.jpg"
+        ]
+    },
+    {
+        main:"memory4.jpg",
+        title:"A beautiful day",
+        date:"One of our favorites",
+        text:"A simple day that somehow turned into a memory we never wanted to lose.",
+        extra:[
+            "memory4-1.jpg",
+            "memory4-2.jpg",
+            "memory4-3.jpg"
+        ]
+    },
+    {
+        main:"memory5.jpg",
+        title:"With you",
+        date:"A little moment",
+        text:"The smallest moments can sometimes become the ones we remember the most.",
+        extra:[
+            "memory5-1.jpg",
+            "memory5-2.jpg",
+            "memory5-3.jpg"
+        ]
+    },
+    {
+        main:"memory6.jpg",
+        title:"One more memory",
+        date:"Another page",
+        text:"Another picture. Another laugh. Another reason to be grateful for us.",
+        extra:[
+            "memory6-1.jpg",
+            "memory6-2.jpg",
+            "memory6-3.jpg"
+        ]
+    },
+    {
+        main:"memory7.jpg",
+        title:"Our favorite",
+        date:"A moment to keep",
+        text:"If we could save feelings instead of pictures, this is one we'd save forever.",
+        extra:[
+            "memory7-1.jpg",
+            "memory7-2.jpg",
+            "memory7-3.jpg"
+        ]
+    },
+    {
+        main:"memory8.jpg",
+        title:"Together",
+        date:"Just another beautiful day",
+        text:"Being together turned an ordinary moment into something worth keeping.",
+        extra:[
+            "memory8-1.jpg",
+            "memory8-2.jpg",
+            "memory8-3.jpg"
+        ]
+    },
+    {
+        main:"memory9.jpg",
+        title:"This feeling",
+        date:"A feeling worth keeping",
+        text:"Some memories don't need many words. You just look at them and remember exactly how you felt.",
+        extra:[
+            "memory9-1.jpg",
+            "memory9-2.jpg",
+            "memory9-3.jpg"
+        ]
+    },
+    {
+        main:"memory10.jpg",
+        title:"To be continued...",
+        date:"Our story isn't over",
+        text:"Ten memories down, and hopefully hundreds more waiting for us.",
+        extra:[
+            "memory10-1.jpg",
+            "memory10-2.jpg",
+            "memory10-3.jpg"
+        ]
+    }
+];
+/* ================= OPEN MEMORY ================= */
+function openMemory(index) {
+    const memory = memories[index];
+    document.getElementById("modalMainImage").src =
+        memory.main;
+    document.getElementById("modalTitle").textContent =
+        memory.title;
+    document.getElementById("modalDate").textContent =
+        memory.date;
+    document.getElementById("modalText").textContent =
+        memory.text;
+    const extraContainer =
+        document.getElementById("extraImages");
+    extraContainer.innerHTML = "";
+    memory.extra.forEach(image => {
+        const img = document.createElement("img");
+        img.src = image;
+        img.onclick = function() {
+            document.getElementById("modalMainImage").src =
+                image;
+        };
+        extraContainer.appendChild(img);
+    });
+    document.getElementById("memoryModal")
+        .classList.add("active");
+    document.body.style.overflow = "hidden";
+}
+/* ================= CLOSE MEMORY ================= */
+function closeMemory() {
+    document.getElementById("memoryModal")
+        .classList.remove("active");
+    document.body.style.overflow = "auto";
+}
+/* CLOSE WHEN CLICK OUTSIDE */
+document.getElementById("memoryModal")
+.addEventListener("click",function(e){
+    if(e.target === this) {
+        closeMemory();
+    }
+});
+/* ESC CLOSE */
+document.addEventListener("keydown",function(e){
+    if(e.key === "Escape") {
+        closeMemory();
+    }
+});
+</script>
+</body>
+</html>
